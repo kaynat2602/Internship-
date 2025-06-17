@@ -1,0 +1,22 @@
+import { useState } from 'react';
+import { encryptNote } from '../utils/cryptoUtils';
+import { saveNote } from '../utils/db';
+
+export default function NoteForm({ onNoteAdded }) {
+  const [text, setText] = useState('');
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const encrypted = encryptNote(text);
+    await saveNote({ content: encrypted });
+    setText('');
+    onNoteAdded();
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <textarea value={text} onChange={(e) => setText(e.target.value)} placeholder="Write a note..." required />
+      <button type="submit">Add Note</button>
+    </form>
+  );
+}
