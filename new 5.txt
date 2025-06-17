@@ -1,0 +1,19 @@
+import NoteForm from './components/NoteForm';
+import NoteList from './components/NoteList';
+import './App.css';
+
+function App() {
+  const [refresh, setRefresh] = useState(false);
+
+  const handleRefresh = () => setRefresh((prev) => !prev);
+
+  return (
+    <div className="App">
+      <h1>🔐 Encrypted Notes App</h1>
+      <NoteForm onNoteAdded={handleRefresh} />
+      <NoteList key={refresh} />
+    </div>
+  );
+}
+
+export default App;
